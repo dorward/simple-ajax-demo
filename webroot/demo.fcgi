@@ -3,8 +3,12 @@
 use strict;
 use warnings;
 use CGI::Fast;
+use Template;
 
-my $COUNTER = 0;
+my $tt = Template->new({
+    INCLUDE_PATH => '/home/david/prog/simple-ajax-demo/templates',
+    INTERPOLATE  => 1,
+}) || die "$Template::ERROR\n";
 
 while (my $q = new CGI::Fast) {
 	&process_request($q);
@@ -13,12 +17,19 @@ while (my $q = new CGI::Fast) {
 sub process_request {
 	my $q = shift;
 	
+	my $view = "html";
+	
+	my $json = $q->Accept('application/json');
+	my $html = $q->Accept('text/html');
+	
+	my $vars = {};
+	
+	my $output;
+	$tt->process('html.tt', $vars, \$output)
+    || die $tt->error(), "\n";
+	
 	print $q->header;
-	print $q->start_html("Fast CGI Rocks");
-	print
-	    $q->h1("Fast CGI Rocks"),
-	    "Invocation number ",$q->b($COUNTER++),
-            " PID ",$q->b($$),".",
-	    $q->hr;
-        print $q->end_html;	
+	print $output;
+	
+	
 }
