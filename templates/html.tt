@@ -3,6 +3,8 @@
 <html lang="en-gb">
 	<head>
 		<title>Sample Ajax Application</title>
+		<script type="text/javascript" src="/js/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="/js/jQuery/demo.js"></script>
 	</head>
 	<body>
 		<h1>Sample Ajax Application</h1>

@@ -22,6 +22,9 @@ sub process_request {
 	my $json = $q->Accept('application/json');
 	my $html = $q->Accept('text/html');
 	
+	use Data::Dumper;
+	warn Dumper [ $json, $html ];
+	
 	my $vars = {};
 	
 	my $output;
