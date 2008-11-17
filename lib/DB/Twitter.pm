@@ -3,6 +3,7 @@ package DB::Twitter;
 use strict;
 use warnings;
 use base qw/DBIx::Class/;
+use DateTime::Format::SQLite;
 __PACKAGE__->load_components(qw/ PK::Auto Core /);
 __PACKAGE__->table('twitter');
 __PACKAGE__->add_columns(
@@ -26,13 +27,18 @@ __PACKAGE__->add_columns(
 	}
 );
 __PACKAGE__->set_primary_key('tweetid');
-
+ __PACKAGE__->inflate_column('time', {
+        inflate => sub { DateTime::Format::SQLite->parse_datetime(shift); },
+        deflate => sub { DateTime::Format::SQLite->format_datetime(shift); },
+    });
 sub TO_JSON {
 	my $self = shift;
+	my $time = $self->time;
 	{
 		message => $self->message,
 		user => $self->user,
-		time => $self->time,
+		epochtime => $self->time->epoch,
+		time => $self->time()->ymd . " " . $self->time()->hms,
 	}
 }
 

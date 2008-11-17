@@ -10,12 +10,11 @@
 		<h1>Sample Ajax Application</h1>
 		
 		[% FOREACH message = messages %]
-		
-		<h2>[% message.user %]</h2>
-		
-		<p>[% message.message %]</p>
-		
-		<p>[% message.time %]</p>
+		<div class="message time_[% message.time.epoch %]">
+			<h2>[% message.user %]</h2>
+			<p>[% message.message %]</p>
+			<p>[% message.time.ymd %] [% message.time.hms %]</p>
+		</div>
 		
 		[% END %]
 		
