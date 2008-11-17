@@ -14,8 +14,6 @@ my $tt = Template->new({
 }) || die "$Template::ERROR\n";
 
 my $json = JSON::XS->new;
-
-# TODO: Check that SQLite doesn't like it if something else writes to the DB while it is open here
 my $schema = App::SimpleAjaxDemo::DB->connect('dbi:SQLite:../data/sqlite.db');
 
 while (my $q = new CGI::Fast) {
