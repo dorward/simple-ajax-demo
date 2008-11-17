@@ -32,7 +32,7 @@ sub process_request {
 	my $vars = {messages => \@messages};
 	
 	if ($view eq "json") {
-		my $data = $json->encode($vars);
+		my $data = $json->convert_blessed->encode($vars);
 		print $q->header('application/json'), $data;
 		return;
 	}

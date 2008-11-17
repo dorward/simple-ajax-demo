@@ -26,4 +26,14 @@ __PACKAGE__->add_columns(
 	}
 );
 __PACKAGE__->set_primary_key('tweetid');
+
+sub TO_JSON {
+	my $self = shift;
+	{
+		message => $self->message,
+		user => $self->user,
+		time => $self->time,
+	}
+}
+
 1;
