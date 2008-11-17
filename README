@@ -1,2 +1,7 @@
 This is a set of code designed for use with
 presentations about Ajax and Perl.
+
+The goal is to produce something simple that
+populates a database with Tweets from Twitter
+and then exposes them to the client through
+a progressively enhanced Ajaxy interface.
