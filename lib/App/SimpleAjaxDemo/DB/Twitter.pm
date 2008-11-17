@@ -1,4 +1,4 @@
-package DB::Twitter;
+package App::SimpleAjaxDemo::DB::Twitter;
 
 use strict;
 use warnings;

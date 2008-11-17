@@ -1,4 +1,4 @@
-package DB;
+package App::SimpleAjaxDemo::DB;
 
 use strict;
 use warnings;

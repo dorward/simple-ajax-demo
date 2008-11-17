@@ -6,13 +6,13 @@ use Net::Twitter;
 use Config::IniFiles;
 use DateTime::Format::HTTP;
 use lib qw( ../lib/ );
-use DB;
+use App::SimpleAjaxDemo::DB;
 
 my $cfg = Config::IniFiles->new( 
 		-file => "../data/config.ini",
 	) or die("No config.ini found");
 
-my $schema = DB->connect('dbi:SQLite:../data/sqlite.db');
+my $schema = App::SimpleAjaxDemo::DB->connect('dbi:SQLite:../data/sqlite.db');
 	
 my $twit = Net::Twitter->new(
 	username => $cfg->{v}{auth}{username},

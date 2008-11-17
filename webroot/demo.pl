@@ -6,7 +6,7 @@ use CGI::Fast;
 use Template;
 use JSON::XS;
 use lib qw( ../lib/ );
-use DB;
+use App::SimpleAjaxDemo::DB;
 
 my $tt = Template->new({
     INCLUDE_PATH => '/home/david/prog/simple-ajax-demo/templates',
@@ -16,7 +16,7 @@ my $tt = Template->new({
 my $json = JSON::XS->new;
 
 # TODO: Check that SQLite doesn't like it if something else writes to the DB while it is open here
-my $schema = DB->connect('dbi:SQLite:../data/sqlite.db');
+my $schema = App::SimpleAjaxDemo::DB->connect('dbi:SQLite:../data/sqlite.db');
 
 while (my $q = new CGI::Fast) {
 	&process_request($q);
