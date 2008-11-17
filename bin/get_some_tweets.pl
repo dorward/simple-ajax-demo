@@ -27,11 +27,9 @@ for my $message (@$messages) {
 	my $time_string = $message->{created_at};
 	$time_string =~ s/\+0000/GMT/;
 	my $time = DateTime::Format::HTTP->parse_datetime($time_string);
-	
-	print qq($user\n$text\n$time\n\n);	
-	
+
 	my $tweet = $schema->resultset('Twitter')->find_or_create({ 
-		time  => $time,
+		time  => $schema->storage->datetime_parser->format_datetime($time),
 		user => $user,
 		message => $text,
   });
