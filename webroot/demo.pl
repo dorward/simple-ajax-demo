@@ -25,7 +25,10 @@ sub process_request {
 	my $view = $q->param("type") || "html";
 	
 	# TODO - limit this by time stamp
-	my @messages = $schema->resultset('Twitter')->all();
+	my @messages = $schema->resultset('Twitter')->search(undef, {
+		rows => 20,
+		order_by => q(time DESC),
+		});
 	
 	my $vars = {messages => \@messages};
 	
