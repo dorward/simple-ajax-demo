@@ -5,6 +5,7 @@ use warnings;
 use CGI::Fast;
 use Template;
 use JSON::XS;
+use DateTime;
 use lib qw( ../lib/ );
 use App::SimpleAjaxDemo::DB;
 
@@ -24,11 +25,19 @@ sub process_request {
 	my $q = shift;
 	my $view = $q->param("type") || "html";
 	
-	# TODO - limit this by time stamp
-	my @messages = $schema->resultset('Twitter')->search(undef, {
+	my $query = undef;
+	
+	if (my $start_time = $q->param('start')) {
+		my $start = DateTime->from_epoch( epoch => $start_time );
+		$query = { time => {  '>' => $start } };
+	}
+	
+	my $limits = {
 		rows => 20,
 		order_by => q(time DESC),
-		});
+		};
+
+	my @messages = $schema->resultset('Twitter')->search($query, $limits);
 	
 	my $vars = {messages => \@messages};
 	
