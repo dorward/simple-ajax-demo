@@ -30,7 +30,7 @@ for my $message (@$messages) {
 	
 	print qq($user\n$text\n$time\n\n);	
 	
-	my $new_album = $schema->resultset('Twitter')->create({ 
+	my $tweet = $schema->resultset('Twitter')->find_or_create({ 
 		time  => $time,
 		user => $user,
 		message => $text,
