@@ -6,8 +6,7 @@ use base qw/DBIx::Class/;
 __PACKAGE__->load_components(qw/ PK::Auto Core /);
 __PACKAGE__->table('twitter');
 __PACKAGE__->add_columns(
-	id => {
-		accessor => "tweet",
+	tweetid => {
 		data_type => "integer",
 		is_nullable => 0,
 		is_auto_increment => 1,
@@ -26,5 +25,5 @@ __PACKAGE__->add_columns(
 		is_nullable => 0,
 	}
 );
-
+__PACKAGE__->set_primary_key('tweetid');
 1;
