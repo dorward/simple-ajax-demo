@@ -8,5 +8,16 @@
 	</head>
 	<body>
 		<h1>Sample Ajax Application</h1>
+		
+		[% FOREACH message = messages %]
+		
+		<h2>[% message.user %]</h2>
+		
+		<p>[% message.message %]</p>
+		
+		<p>[% message.time %]</p>
+		
+		[% END %]
+		
 	</body>
 </html> 

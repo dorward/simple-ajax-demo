@@ -5,6 +5,8 @@ use warnings;
 use CGI::Fast;
 use Template;
 use JSON::XS;
+use lib qw( ../lib/ );
+use DB;
 
 my $tt = Template->new({
     INCLUDE_PATH => '/home/david/prog/simple-ajax-demo/templates',
@@ -13,6 +15,9 @@ my $tt = Template->new({
 
 my $json = JSON::XS->new;
 
+# TODO: Check that SQLite doesn't like it if something else writes to the DB while it is open here
+my $schema = DB->connect('dbi:SQLite:../data/sqlite.db');
+
 while (my $q = new CGI::Fast) {
 	&process_request($q);
 }
@@ -20,7 +25,11 @@ while (my $q = new CGI::Fast) {
 sub process_request {
 	my $q = shift;
 	my $view = $q->param("type") || "html";
-	my $vars = {hello => 'world'};
+	
+	# TODO - limit this by time stamp
+	my @messages = $schema->resultset('Twitter')->all();
+	
+	my $vars = {messages => \@messages};
 	
 	if ($view eq "json") {
 		my $data = $json->encode($vars);
