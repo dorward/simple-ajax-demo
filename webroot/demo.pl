@@ -4,11 +4,14 @@ use strict;
 use warnings;
 use CGI::Fast;
 use Template;
+use JSON::XS;
 
 my $tt = Template->new({
     INCLUDE_PATH => '/home/david/prog/simple-ajax-demo/templates',
     INTERPOLATE  => 1,
 }) || die "$Template::ERROR\n";
+
+my $json = JSON::XS->new;
 
 while (my $q = new CGI::Fast) {
 	&process_request($q);
@@ -16,23 +19,18 @@ while (my $q = new CGI::Fast) {
 
 sub process_request {
 	my $q = shift;
+	my $view = $q->param("type") || "html";
+	my $vars = {hello => 'world'};
 	
-	my $view = "html";
-	
-	my $json = $q->Accept('application/json');
-	my $html = $q->Accept('text/html');
-	
-	use Data::Dumper;
-	warn Dumper [ $json, $html,  $q->Accept ];
-	
-	my $vars = {};
-	
+	if ($view eq "json") {
+		my $data = $json->encode($vars);
+		print $q->header('application/json'), $data;
+		return;
+	}
+
 	my $output;
 	$tt->process('html.tt', $vars, \$output)
     || die $tt->error(), "\n";
 	
-	print $q->header;
-	print $output;
-	
-	
+	print $q->header, $output;
 }
