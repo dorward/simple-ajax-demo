@@ -29,6 +29,7 @@ sub process_request {
 	
 	if (my $start_time = $q->param('start')) {
 		my $start = DateTime->from_epoch( epoch => $start_time );
+		$start =  $schema->storage->datetime_parser->format_datetime($start);
 		$query = { time => {  '>' => $start } };
 	}
 	
