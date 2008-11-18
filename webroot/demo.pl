@@ -36,13 +36,14 @@ sub process_request {
 	# Standard SQL settings
 	my $limits = {
 		rows => 20,
-		order_by => q(time DESC),
+		order_by => q(tweetid DESC),
 		};
 
 	my @messages = $schema->resultset('Twitter')->search($query, $limits);
 	
 	# Identify highest id (we use it to request more data from the server)
-	my @ids = sort map { $_->tweetid } @messages;
+	my @ids = sort { $a <=> $b } map { $_->tweetid } @messages;
+	use Data::Dumper; print Dumper \@ids;
 	my $id = pop @ids;
 	
 	# Prepare data to send to the client

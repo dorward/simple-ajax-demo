@@ -20,6 +20,7 @@ var update_messages_success = function (data) {
 			var message = data.messages[i];
 			
 			var container = document.createElement('div');
+			container.className = 'message';
 			var heading = document.createElement('h2');
 			heading.appendChild(document.createTextNode(message.user));
 			var paragraph = document.createElement('p');
