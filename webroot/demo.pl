@@ -50,5 +50,5 @@ sub process_request {
 	$tt->process('html.tt', $vars, \$output)
     || die $tt->error(), "\n";
 	
-	print $q->header, $output;
+	print $q->header('text/html;charset=utf-8'), $output;
 }
