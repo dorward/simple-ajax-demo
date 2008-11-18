@@ -51,7 +51,7 @@ sub process_request {
 	# Now format that data as JSON or HTML	
 	if ($view eq "json") {
 		my $data = $json->convert_blessed->encode($vars);
-		print $q->header('application/json'), $data;
+		print $q->header('application/json;charset=utf-8'), $data;
 		return;
 	}
 
