@@ -35,7 +35,6 @@ sub TO_JSON {
 		tweetid => $self->tweetid,
 		message => $self->message,
 		user => $self->user,
-		epochtime => $self->time->epoch,
 		time => $self->time()->ymd . " " . $self->time()->hms,
 	}
 }
