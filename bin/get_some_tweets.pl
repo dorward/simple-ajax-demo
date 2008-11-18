@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Net::Twitter;
 use Config::IniFiles;
+use DateTime;
 use DateTime::Format::HTTP;
 use lib qw( ../lib/ );
 use App::SimpleAjaxDemo::DB;
@@ -19,18 +20,32 @@ my $twit = Net::Twitter->new(
 	password => $cfg->{v}{auth}{password},
 );
   
-my $messages = $twit->friends_timeline();
+my $messages_ref = $twit->friends_timeline();
 
-for my $message (@$messages) {
-	my $user = $message->{user}{name};
-	my $text = $message->{text};
-	my $time_string = $message->{created_at};
-	$time_string =~ s/\+0000/GMT/;
+my @messages = sort { 
+	$a->{time} cmp $b->{time} 
+	} map {
+		tweet_to_hash_ref($_);
+	} @$messages_ref;
+
+for my $message (@messages) {
+	my $tweet = $schema->resultset('Twitter')->find_or_create($message);
+}
+
+sub format_time {
+	my $time_string = shift;
+	$time_string =~ s/\+0000/GMT/; # Hack 
 	my $time = DateTime::Format::HTTP->parse_datetime($time_string);
+	$time = $schema->storage->datetime_parser->format_datetime($time);
+	return $time;
+}
 
-	my $tweet = $schema->resultset('Twitter')->find_or_create({ 
-		time  => $schema->storage->datetime_parser->format_datetime($time),
-		user => $user,
-		message => $text,
-  });
+sub tweet_to_hash_ref {
+	my $tweet = shift;
+	
+	return {
+		user => $tweet->{user}->{name},
+		message => $tweet->{text},
+		time => format_time($tweet->{created_at})
+	};
 }
