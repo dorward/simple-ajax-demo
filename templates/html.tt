@@ -9,6 +9,8 @@
 	<body>
 		<h1>Sample Ajax Application</h1>
 		
+		<div id="messages" class="most_recent_message_[% most_recent %]">
+		
 		[% FOREACH message = messages %]
 		<div class="message" id="message_[% message.tweetid %]">
 			<h2>[% message.user %]</h2>

@@ -42,10 +42,11 @@ sub process_request {
 	my @messages = $schema->resultset('Twitter')->search($query, $limits);
 	
 	# Identify highest id (we use it to request more data from the server)
-	my $id = pop sort map { $_->tweetid } @messages;
+	my @ids = sort map { $_->tweetid } @messages;
+	my $id = pop @ids;
 	
 	# Prepare data to send to the client
-	my $vars = {messages => \@messages, most_recent = $id};
+	my $vars = {messages => \@messages, most_recent => $id};
 	
 	# Now format that data as JSON or HTML	
 	if ($view eq "json") {
