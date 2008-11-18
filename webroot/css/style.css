@@ -1,0 +1,36 @@
+h1, h2, p, div, html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+.message {
+	margin: 0.5em auto;
+	max-width: 25em;
+	padding: 0.5em;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 0.9em;
+}
+
+p + p {
+	font-size: 0.8em;
+	text-align: right;
+}
