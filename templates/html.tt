@@ -15,7 +15,6 @@
 			<p>[% message.message %]</p>
 			<p>[% message.time.ymd %] [% message.time.hms %]</p>
 		</div>
-		
 		[% END %]
 		
 	</body>

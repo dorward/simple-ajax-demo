@@ -25,12 +25,15 @@ sub process_request {
 	my $q = shift;
 	my $view = $q->param("type") || "html";
 	
+	# By default, don't limit the quere with a WHERE clause
 	my $query = undef;
 	
+	# If data from a specific point is requested, add it to the query 
 	if (my $start = $q->param('start')) {
 		$query = { tweetid => {  '>' => $start } };
 	}
 	
+	# Standard SQL settings
 	my $limits = {
 		rows => 20,
 		order_by => q(time DESC),
@@ -38,8 +41,13 @@ sub process_request {
 
 	my @messages = $schema->resultset('Twitter')->search($query, $limits);
 	
-	my $vars = {messages => \@messages};
+	# Identify highest id (we use it to request more data from the server)
+	my $id = pop sort map { $_->tweetid } @messages;
 	
+	# Prepare data to send to the client
+	my $vars = {messages => \@messages, most_recent = $id};
+	
+	# Now format that data as JSON or HTML	
 	if ($view eq "json") {
 		my $data = $json->convert_blessed->encode($vars);
 		print $q->header('application/json'), $data;
