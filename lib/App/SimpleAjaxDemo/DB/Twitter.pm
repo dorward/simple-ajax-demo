@@ -3,7 +3,6 @@ package App::SimpleAjaxDemo::DB::Twitter;
 use strict;
 use warnings;
 use base qw/DBIx::Class/;
-use DateTime::Format::SQLite;
 __PACKAGE__->load_components(qw/ PK::Auto InflateColumn::DateTime Core/);
 __PACKAGE__->table('twitter');
 __PACKAGE__->add_columns(
