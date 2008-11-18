@@ -32,6 +32,7 @@ sub TO_JSON {
 	my $self = shift;
 	my $time = $self->time;
 	{
+		tweetid => $self->tweetid,
 		message => $self->message,
 		user => $self->user,
 		epochtime => $self->time->epoch,

@@ -27,10 +27,8 @@ sub process_request {
 	
 	my $query = undef;
 	
-	if (my $start_time = $q->param('start')) {
-		my $start = DateTime->from_epoch( epoch => $start_time );
-		$start =  $schema->storage->datetime_parser->format_datetime($start);
-		$query = { time => {  '>' => $start } };
+	if (my $start = $q->param('start')) {
+		$query = { tweetid => {  '>' => $start } };
 	}
 	
 	my $limits = {

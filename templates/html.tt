@@ -10,7 +10,7 @@
 		<h1>Sample Ajax Application</h1>
 		
 		[% FOREACH message = messages %]
-		<div class="message time_[% message.time.epoch %]">
+		<div class="message" id="message_[% message.tweetid %]">
 			<h2>[% message.user %]</h2>
 			<p>[% message.message %]</p>
 			<p>[% message.time.ymd %] [% message.time.hms %]</p>
