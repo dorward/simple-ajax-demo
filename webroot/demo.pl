@@ -43,7 +43,6 @@ sub process_request {
 	
 	# Identify highest id (we use it to request more data from the server)
 	my @ids = sort { $a <=> $b } map { $_->tweetid } @messages;
-	use Data::Dumper; print Dumper \@ids;
 	my $id = pop @ids;
 	
 	# Prepare data to send to the client
