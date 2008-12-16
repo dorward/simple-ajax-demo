@@ -25,7 +25,7 @@ sub process_request {
 	my $q = shift;
 	my $view = $q->param("type") || "html";
 	
-	# By default, don't limit the quere with a WHERE clause
+	# By default, don't limit the query with a WHERE clause
 	my $query = undef;
 	
 	# If data from a specific point is requested, add it to the query 
