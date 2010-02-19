@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
- 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+   
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<title>dorward/simple-ajax-demo @ GitHub</title>
+	<title>Simple Ajax Demo</title>
 	
 	<style type="text/css">
 		body {
@@ -34,8 +34,6 @@
 </head>
 
 <body>
-  <a href="http://github.com/dorward/simple-ajax-demo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-  
   <div id="container">
 
     <div class="download">
@@ -51,12 +49,30 @@
     <div class="description">
       Support code for an introductory Ajax talk covering both client and server
     </div>
-
-    <h2>Authors</h2>
-<p>dorward (david@dorward.me.uk)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>David Dorward (david@dorward.me.uk)<br/>      </p>
-
+	
+	<h2>Interesting pieces</h2>
+	
+	<p>This project has the code structured in to a number of directories.
+	Since it is designed as a learning aid rather then something that is
+	actually runnable, here are pointers to the most interesting bits of code.</p>
+	
+	<h3> The Server Side Code </h3>
+	
+	<p><a href="http://github.com/dorward/simple-ajax-demo/blob/master/webroot/demo.pl">demo.pl</a> is
+	responsible for getting some data from the database, deciding if the user wants HTML or JSON,
+	running the data through something to convert it to the right format, and then returning
+	the result.</p>
+	
+	<h3> The HTML </h3>
+	
+	<p><a href="http://github.com/dorward/simple-ajax-demo/blob/master/templates/html.tt">html.tt</a> is
+	the HTML template that loads the JS and populates the default set of data.</p>
+	
+	<h3> The JavaScript </h3>
+	
+	<p><a href="http://github.com/dorward/simple-ajax-demo/blob/master/webroot/js/jQuery/demo.js">jQuery/demo.js</a>
+	is responsible for polling demo.pl and adding any new data to the page.</p>
+	
 
     <h2>Download</h2>
     <p>
